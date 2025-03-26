@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { searchMovies } from "../api/tmdb";
-import { FaStar, FaHeart } from 'react-icons/fa';
+import { FaStar, FaHeart, FaSearch } from 'react-icons/fa';
 
 const MovieCard = ({ movie }) => {
     const [isInWatchlist, setIsInWatchlist] = useState(false);
