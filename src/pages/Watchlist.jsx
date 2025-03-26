@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Star, Trash2, Film, Heart } from 'lucide-react';
+import { FaStar, FaHeart, FaTrash } from 'react-icons/fa';
 
 const Watchlist = () => {
     const [watchlist, setWatchlist] = useState([]);
@@ -38,12 +38,12 @@ const Watchlist = () => {
                         style={{ background: 'none', border: 'none', padding: '0.5rem' }}
                         aria-label="Retirer de la liste"
                     >
-                        <Heart className="w-5 h-5 text-pink-500 fill-current hover:text-pink-600 transition-colors duration-300" />
+                        <FaHeart className="w-5 h-5 text-pink-500 fill-current hover:text-pink-600 transition-colors duration-300" />
                     </button>
                 </div>
                 <div className="absolute top-0 left-0 right-0 p-4 transform -translate-y-full transition-transform duration-300 group-hover:translate-y-0">
                     <div className="flex items-center space-x-1 mb-2">
-                        <Star className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
+                        <FaStar className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
                         <span className={getRatingColor(movie.vote_average)}>{movie.vote_average.toFixed(1)}</span>
                     </div>
                     <h3 className="text-[#7692FF] font-medium group-hover:text-[#ABD2FA] line-clamp-2 transition-colors duration-300">
