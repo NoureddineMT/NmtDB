@@ -184,7 +184,7 @@ const SearchPage = () => {
                     setTotalPages(1);
                 }
             } catch (err) {
-                setError("Une erreur s'est produite lors de la recherche.");
+                setError("Une erreur s'est produite lors de la recherche. Veuillez réessayer.");
                 console.error("Erreur de recherche:", err);
                 setMovies([]);
                 setTotalPages(1);
