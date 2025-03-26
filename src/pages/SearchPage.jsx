@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { searchMovies } from "../api/tmdb";
-import { Star, Heart, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { FaStar, FaHeart } from 'react-icons/fa';
 
 const MovieCard = ({ movie }) => {
     const [isInWatchlist, setIsInWatchlist] = useState(false);
@@ -53,7 +53,7 @@ const MovieCard = ({ movie }) => {
                     className="absolute top-2 right-2 z-20 p-2 rounded-full transition-colors duration-300"
                     style={{ background: 'none', border: 'none', padding: '0.5rem' }}
                 >
-                    <Heart
+                    <FaHeart
                         className={`w-5 h-5 transition-colors duration-300 ${isInWatchlist
                             ? 'text-pink-500 fill-current'
                             : 'text-[#ABD2FA] hover:text-pink-500'
@@ -63,7 +63,7 @@ const MovieCard = ({ movie }) => {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-0 transition-transform duration-300 group-hover:translate-y-full">
                 <div className="flex items-center space-x-1 mb-2">
-                    <Star className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
+                    <FaStar className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
                     <span className={getRatingColor(movie.vote_average)}>{movie.vote_average.toFixed(1)}</span>
                 </div>
                 <h3 className="text-[#7692FF] font-medium group-hover:text-[#ABD2FA] line-clamp-2 transition-colors duration-300">
@@ -240,7 +240,7 @@ const SearchPage = () => {
 
                 {!loading && !error && movies.length === 0 && (
                     <div className="text-center py-12">
-                        <Search className="w-16 h-16 text-[#7692FF] mx-auto mb-4" />
+                        <FaSearch className="w-16 h-16 text-[#7692FF] mx-auto mb-4" />
                         <p className="text-[#ABD2FA] text-lg">
                             Aucun film trouvé pour "{query}"
                         </p>
