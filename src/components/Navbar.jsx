@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaSearch, FaHeart, FaHome, FaUser } from 'react-icons/fa';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { FaSearch, FaHeart, FaHome, FaUser, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,7 +52,7 @@ const Navbar = () => {
                                 className="flex items-center space-x-1 text-[#7692FF] hover:text-[#ABD2FA] transition-colors !bg-transparent !border-none !p-0 !font-normal !text-base !cursor-pointer !rounded-none"
                             >
                                 <span>Catégories</span>
-                                <ChevronDown className="w-4 h-4" />
+                                <FaChevronDown className="w-4 h-4" />
                             </button>
                             {isDropdownOpen && (
                                 <div className="absolute top-full left-0 mt-2 w-48 bg-[#091540] border border-[#3D518C] rounded-lg shadow-lg py-2">
@@ -97,7 +96,7 @@ const Navbar = () => {
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                         className="md:hidden p-2 rounded-lg bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF] transition-colors duration-300"
                     >
-                        {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
                     </button>
                 </div>
 
