@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchMovieDetails, fetchTrailers } from "../api/tmdb";
-import { Star, Clock, Calendar, Heart, ChevronLeft, ArrowLeft, Play, Plus, Check, X } from 'lucide-react';
+import { FaStar, FaClock, FaCalendar, FaHeart, FaChevronLeft, FaArrowLeft, FaPlay, FaPlus, FaCheck } from 'react-icons/fa';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -110,7 +110,7 @@ const MovieDetails = () => {
                         onClick={handleBack}
                         className="text-[#7692FF] hover:text-[#ABD2FA] transition-colors"
                     >
-                        <ChevronLeft className="w-5 h-5" />
+                        <FaChevronLeft className="w-5 h-5" />
                         Retour
                     </button>
                 </div>
@@ -134,7 +134,7 @@ const MovieDetails = () => {
                     onClick={handleBack}
                     className="flex items-center text-[#7692FF] hover:text-[#ABD2FA] transition-colors mb-6"
                 >
-                    <ChevronLeft className="w-6 h-6 mr-2" />
+                    <FaChevronLeft className="w-6 h-6 mr-2" />
                     Retour
                 </button>
 
@@ -154,7 +154,7 @@ const MovieDetails = () => {
 
                         <div className="flex items-center space-x-6 mb-6">
                             <div className="flex items-center text-[#ABD2FA]">
-                                <Star className="w-6 h-6 mr-1" />
+                                <FaStar className="w-6 h-6 mr-1" />
                                 <span className="text-xl font-bold">{movie.vote_average.toFixed(1)}</span>
                             </div>
                             <button
@@ -164,7 +164,7 @@ const MovieDetails = () => {
                                     : 'bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF]'
                                     }`}
                             >
-                                <Heart className={`w-5 h-5 ${isInWatchlist ? 'fill-current' : ''}`} />
+                                <FaHeart className={`w-5 h-5 ${isInWatchlist ? 'fill-current' : ''}`} />
                                 <span>{isInWatchlist ? 'Retirer de ma liste' : 'Ajouter à ma liste'}</span>
                             </button>
                             <button
@@ -177,11 +177,11 @@ const MovieDetails = () => {
 
                         <div className="flex items-center space-x-4 text-[#3D518C] mb-6">
                             <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-1" />
+                                <FaCalendar className="w-4 h-4 mr-1" />
                                 <span>{movie.release_date}</span>
                             </div>
                             <div className="flex items-center">
-                                <Clock className="w-4 h-4 mr-1" />
+                                <FaClock className="w-4 h-4 mr-1" />
                                 <span>{movie.runtime} min</span>
                             </div>
                         </div>
