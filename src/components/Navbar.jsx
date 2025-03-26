@@ -116,7 +116,7 @@ const Navbar = () => {
                                 />
                                 <button
                                     type="submit"
-                                    className="bg-[#3D518C] text-[#ABD2FA] px-4 py-2 rounded-r hover:bg-[#7692FF] transition-colors"
+                                    className="bg-[#7692FF] text-white px-4 py-2 rounded-r-lg hover:bg-[#ABD2FA] transition-colors duration-300 !rounded-r-lg !rounded-l-none"
                                 >
                                     <FaSearch className="w-5 h-5" />
                                 </button>
