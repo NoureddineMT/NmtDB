@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaStar, FaHeart } from 'react-icons/fa';
+import { FaStar, FaRegHeart, FaHeart } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
@@ -53,12 +53,11 @@ const MovieCard = ({ movie }) => {
                     className="absolute top-2 right-2 z-20 p-2 rounded-full transition-colors duration-300"
                     style={{ background: 'none', border: 'none', padding: '0.5rem' }}
                 >
-                    <FaHeart
-                        className={`w-5 h-5 transition-colors duration-300 ${isInWatchlist
-                            ? 'text-pink-500 fill-current'
-                            : 'text-[#ABD2FA] hover:text-pink-500'
-                            }`}
-                    />
+                    {isInWatchlist ? (
+                        <FaHeart className="w-5 h-5 text-pink-500 fill-current hover:text-pink-600 transition-colors duration-300" />
+                    ) : (
+                        <FaRegHeart className="w-5 h-5 text-[#ABD2FA] hover:text-pink-500 transition-colors duration-300" />
+                    )}
                 </button>
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 transform translate-y-0 transition-transform duration-300 group-hover:translate-y-full">

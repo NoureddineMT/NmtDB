@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaSearch, FaHeart, FaHome, FaUser, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { TbMovie } from "react-icons/tb";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,8 +22,8 @@ const Navbar = () => {
         <nav className="bg-[#091540] border-b border-[#3D518C] shadow-lg transition duration-300 w-full sticky top-0 z-50">
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between h-16">
-                    <Link to="/" className="flex items-center space-x-2">
-                        <FaHome className="w-8 h-8 text-[#ABD2FA]" />
+                    <Link to="/" className="flex items-center ">
+                        <TbMovie className="w-8 h-8" />
                         <span className="text-2xl font-bold text-[#ABD2FA]">NmtDB</span>
                     </Link>
 

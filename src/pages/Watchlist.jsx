@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaHeart, FaTrash } from 'react-icons/fa';
+import { TbMovie } from "react-icons/tb";
 
 const Watchlist = () => {
     const [watchlist, setWatchlist] = useState([]);
@@ -18,9 +19,9 @@ const Watchlist = () => {
 
     const MovieCard = ({ movie, onRemove }) => {
         const getRatingColor = (rating) => {
-            if (rating >= 6.8) return 'text-green-500'; // Verde per voti alti
-            if (rating >= 5) return 'text-[#e6b616]'; // Giallo per voti medi
-            return 'text-red-500'; // Rosso per voti bassi
+            if (rating >= 6.8) return 'text-green-500';
+            if (rating >= 5) return 'text-[#e6b616]';
+            return 'text-red-500';
         };
 
         return (
@@ -83,9 +84,9 @@ const Watchlist = () => {
         <div className="min-h-screen bg-[#091540] py-12 px-4">
             <div className="container mx-auto">
                 <div className="bg-[#3D518C] p-8 rounded-2xl shadow-xl mb-8 text-center">
-                    <div className="flex items-center justify-center space-x-4 mb-4">
-                        <FaStar className="w-8 h-8 text-[#ABD2FA]" />
-                        <h1 className="text-4xl font-bold text-[#ABD2FA]">Ma Liste de Films</h1>
+                    <div className="flex items-center justify-center mb-4">
+                        <TbMovie className="w-10 h-10 text-[#ABD2FA] leading-none" />
+                        <h1 className="text-4xl font-bold text-[#ABD2FA] leading-none">Ma Liste de Films</h1>
                     </div>
                     <p className="text-[#ABD2FA] text-base max-w-2xl mx-auto">
                         Les films que vous ajoutez à votre liste sont sauvegardés localement dans votre navigateur et resteront disponibles même après la fermeture de la page.
