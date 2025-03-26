@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { fetchTrendingMovies, fetchTopRatedMovies, fetchUpcomingMovies, fetchPopularMovies } from "../api/tmdb";
-import { Star, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { FaStar, FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
@@ -55,7 +55,7 @@ const MovieCard = ({ movie }) => {
                     className="absolute top-2 right-2 z-20 p-2 rounded-full transition-colors duration-300"
                     style={{ background: 'none', border: 'none', padding: '0.5rem' }}
                 >
-                    <Heart
+                    <FaHeart
                         className={`w-5 h-5 transition-colors duration-300 ${isInWatchlist
                             ? 'text-pink-500 fill-current'
                             : 'text-[#ABD2FA] hover:text-pink-500'
@@ -65,7 +65,7 @@ const MovieCard = ({ movie }) => {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-0 transition-transform duration-300 group-hover:translate-y-full">
                 <div className="flex items-center space-x-1 mb-2">
-                    <Star className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
+                    <FaStar className={`w-4 h-4 ${getRatingColor(movie.vote_average)}`} />
                     <span className={getRatingColor(movie.vote_average)}>{movie.vote_average.toFixed(1)}</span>
                 </div>
                 <h3 className="text-[#7692FF] font-medium group-hover:text-[#ABD2FA] line-clamp-2 transition-colors duration-300">
@@ -101,7 +101,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 disabled={currentPage === 1}
                 className="px-2 py-1 text-sm rounded bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
             >
-                &lt;
+                <FaChevronLeft className="w-4 h-4" />
             </button>
             {startPage > 1 && (
                 <>
@@ -121,8 +121,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                     key={page}
                     onClick={() => onPageChange(page)}
                     className={`px-2 py-1 text-sm rounded transition-colors duration-300 ${currentPage === page
-                            ? 'bg-[#7692FF] text-[#091540]'
-                            : 'bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF]'
+                        ? 'bg-[#7692FF] text-[#091540]'
+                        : 'bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF]'
                         }`}
                 >
                     {page}
@@ -146,7 +146,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 disabled={currentPage === totalPages}
                 className="px-2 py-1 text-sm rounded bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF] disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
             >
-                &gt;
+                <FaChevronRight className="w-4 h-4" />
             </button>
         </div>
     );
