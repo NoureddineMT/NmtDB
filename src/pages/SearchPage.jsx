@@ -209,14 +209,14 @@ const SearchPage = () => {
                     <h1 className="text-3xl font-bold text-[#ABD2FA] mb-4">
                         Résultats de recherche pour "{query}"
                     </h1>
+                    {error && (
+                        <div className="text-red-500 text-center py-4">
+                            Une erreur s'est produite lors de la recherche. Veuillez réessayer.
+                        </div>
+                    )}
                     {loading && (
                         <div className="flex justify-center items-center py-12">
                             <div className="w-10 h-10 border-4 border-[#ABD2FA] border-t-transparent rounded-full animate-spin"></div>
-                        </div>
-                    )}
-                    {error && (
-                        <div className="text-red-500 text-center py-4">
-                            {error}
                         </div>
                     )}
                 </div>

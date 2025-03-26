@@ -63,7 +63,6 @@ const Watchlist = () => {
         return (
             <div className="min-h-screen bg-[#091540] flex flex-col items-center justify-center px-4">
                 <div className="bg-[#3D518C] p-8 rounded-2xl shadow-xl max-w-md w-full text-center">
-                    <Film className="w-16 h-16 text-[#ABD2FA] mx-auto mb-6" />
                     <h1 className="text-4xl font-bold text-[#ABD2FA] mb-6">Ma Liste de Films</h1>
                     <p className="text-[#ABD2FA] text-xl mb-4">Votre liste est vide</p>
                     <p className="text-[#7692FF] text-sm mb-8">
@@ -73,7 +72,6 @@ const Watchlist = () => {
                         to="/"
                         className="inline-flex items-center space-x-2 bg-[#e6b616] text-black px-6 py-3 rounded-lg hover:bg-[#d4a017] transition duration-300 transform hover:scale-105 font-semibold"
                     >
-                        <Film className="w-5 h-5" />
                         <span>Explorer les Films</span>
                     </Link>
                 </div>
@@ -86,7 +84,7 @@ const Watchlist = () => {
             <div className="container mx-auto">
                 <div className="bg-[#3D518C] p-8 rounded-2xl shadow-xl mb-8 text-center">
                     <div className="flex items-center justify-center space-x-4 mb-4">
-                        <Film className="w-8 h-8 text-[#ABD2FA]" />
+                        <FaStar className="w-8 h-8 text-[#ABD2FA]" />
                         <h1 className="text-4xl font-bold text-[#ABD2FA]">Ma Liste de Films</h1>
                     </div>
                     <p className="text-[#ABD2FA] text-base max-w-2xl mx-auto">
