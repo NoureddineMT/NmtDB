@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Star, Heart } from 'lucide-react';
+import { FaStar, FaHeart } from 'react-icons/fa';
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
@@ -53,7 +53,7 @@ const MovieCard = ({ movie }) => {
                     className="absolute top-2 right-2 z-20 p-2 rounded-full transition-colors duration-300"
                     style={{ background: 'none', border: 'none', padding: '0.5rem' }}
                 >
-                    <Heart
+                    <FaHeart
                         className={`w-5 h-5 transition-colors duration-300 ${isInWatchlist
                             ? 'text-pink-500 fill-current'
                             : 'text-[#ABD2FA] hover:text-pink-500'
@@ -63,7 +63,7 @@ const MovieCard = ({ movie }) => {
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 transform translate-y-0 transition-transform duration-300 group-hover:translate-y-full">
                 <div className="flex items-center space-x-1 mb-1 sm:mb-2">
-                    <Star className={`w-3 h-3 sm:w-4 sm:h-4 ${getRatingColor(movie.vote_average)}`} />
+                    <FaStar className={`w-3 h-3 sm:w-4 sm:h-4 ${getRatingColor(movie.vote_average)}`} />
                     <span className={`text-sm sm:text-base ${getRatingColor(movie.vote_average)}`}>{movie.vote_average.toFixed(1)}</span>
                 </div>
                 <h3 className="text-[#7692FF] font-medium group-hover:text-[#ABD2FA] line-clamp-2 transition-colors duration-300 text-sm sm:text-base">
