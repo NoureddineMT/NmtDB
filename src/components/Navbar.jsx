@@ -1,6 +1,7 @@
-import { Search, Film, Menu, X, ChevronDown } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FaSearch, FaHeart, FaHome, FaUser } from 'react-icons/fa';
+import { Menu, X, ChevronDown } from 'lucide-react';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,7 +23,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-between h-16">
                     <Link to="/" className="flex items-center space-x-2">
-                        <Film className="w-8 h-8 text-[#ABD2FA]" />
+                        <FaHome className="w-8 h-8 text-[#ABD2FA]" />
                         <span className="text-2xl font-bold text-[#ABD2FA]">NmtDB</span>
                     </Link>
 
@@ -40,7 +41,7 @@ const Navbar = () => {
                                 type="submit"
                                 className="ml-2 text-[#ABD2FA] hover:text-[#7692FF]"
                             >
-                                <Search className="w-5 h-5" />
+                                <FaSearch className="w-5 h-5" />
                             </button>
                         </form>
                     </div>
@@ -117,7 +118,7 @@ const Navbar = () => {
                                     type="submit"
                                     className="bg-[#3D518C] text-[#ABD2FA] px-4 py-2 rounded-r hover:bg-[#7692FF] transition-colors"
                                 >
-                                    <Search className="w-5 h-5" />
+                                    <FaSearch className="w-5 h-5" />
                                 </button>
                             </div>
                         </form>
