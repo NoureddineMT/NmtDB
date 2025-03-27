@@ -10,7 +10,8 @@ import {
     FaPlay,
     FaPlus,
     FaCheck,
-    FaTimes
+    FaTimes,
+    FaFilm
 } from 'react-icons/fa';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -101,15 +102,32 @@ const MovieDetails = () => {
         prevArrow: <div className="slick-arrow slick-prev text-3xl text-yellow-400 hover:text-yellow-300">←</div>,
     };
 
+    useEffect(() => {
+        const from = location.state?.from || window.location.pathname + window.location.search;
+        if (from !== '/movie') {
+            sessionStorage.setItem('previousPage', from);
+        }
+    }, []);    
+
     const handleBack = () => {
-        const previousPage = location.state?.from || '/';
-        navigate(previousPage);
+        const previousPage = localStorage.getItem('previousPage');
+        if (previousPage) {
+            localStorage.removeItem('previousPage');
+            navigate(previousPage, { replace: true });
+        } else {
+            navigate(-1);
+        }
     };
 
     if (loading) {
         return (
             <div className="min-h-screen bg-gradient-to-b from-[#091540] to-[#1a1a2e] flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
+                <div className="relative">
+                    <div className="w-24 h-24 border-4 border-[#ABD2FA] border-t-transparent rounded-full animate-spin"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <FaFilm className="w-12 h-12 text-[#ABD2FA] animate-pulse" />
+                    </div>
+                </div>
             </div>
         );
     }
