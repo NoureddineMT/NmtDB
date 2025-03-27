@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { fetchMovieDetails, fetchTrailers } from "../api/tmdb";
-import { FaStar, FaClock, FaCalendar, FaHeart, FaChevronLeft, FaArrowLeft, FaPlay, FaPlus, FaCheck } from 'react-icons/fa';
+import {
+    FaStar,
+    FaClock,
+    FaCalendar,
+    FaHeart,
+    FaChevronLeft,
+    FaPlay,
+    FaPlus,
+    FaCheck,
+    FaTimes
+} from 'react-icons/fa';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -70,11 +80,9 @@ const MovieDetails = () => {
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        afterChange: (current) => {
-            setCurrentTrailerIndex(current);
-        },
-        nextArrow: <div style={{ fontSize: '30px', color: '#e6b616' }}>→</div>,
-        prevArrow: <div style={{ fontSize: '30px', color: '#e6b616' }}>←</div>,
+        afterChange: (current) => setCurrentTrailerIndex(current),
+        nextArrow: <div className="slick-arrow slick-next text-3xl text-yellow-400 hover:text-yellow-300">→</div>,
+        prevArrow: <div className="slick-arrow slick-prev text-3xl text-yellow-400 hover:text-yellow-300">←</div>,
     };
 
     const handleBack = () => {
@@ -87,31 +95,25 @@ const MovieDetails = () => {
         }
     };
 
-    const handlePlayTrailer = () => {
-        setShowTrailer(true);
-        setIsLoadingTrailer(true);
-        // Implement the logic to fetch and set the selected video
-    };
-
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#091540] flex items-center justify-center">
-                <div className="w-16 h-16 border-4 border-[#ABD2FA] border-t-transparent rounded-full animate-spin"></div>
+            <div className="min-h-screen bg-gradient-to-b from-[#091540] to-[#1a1a2e] flex items-center justify-center">
+                <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin"></div>
             </div>
         );
     }
 
     if (error || !movie) {
         return (
-            <div className="min-h-screen bg-[#091540] flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-red-500 mb-4">Une erreur s'est produite lors du chargement du film.</p>
+            <div className="min-h-screen bg-gradient-to-b from-[#091540] to-[#1a1a2e] flex items-center justify-center">
+                <div className="text-center bg-[#1a1a2e] p-8 rounded-lg shadow-xl">
+                    <p className="text-red-400 text-xl mb-6">Une erreur s'est produite lors du chargement du film.</p>
                     <button
                         onClick={handleBack}
-                        className="text-[#7692FF] hover:text-[#ABD2FA] transition-colors"
+                        className="flex items-center gap-2 mx-auto text-yellow-400 hover:text-yellow-300 transition-colors"
                     >
                         <FaChevronLeft className="w-5 h-5" />
-                        Retour
+                        <span>Retour</span>
                     </button>
                 </div>
             </div>
@@ -119,164 +121,191 @@ const MovieDetails = () => {
     }
 
     return (
-        <div className="bg-[#091540] min-h-screen">
-            <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#3D518C]"></div>
+        <div className="bg-gradient-to-b from-[#091540] to-[#1a1a2e] min-h-screen">
+            {/* Backdrop Image Section */}
+            <div className="relative h-[70vh]">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#091540]/70 to-[#1a1a2e]"></div>
                 <img
                     src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
                     alt={movie.title}
-                    className="w-full h-[60vh] object-cover opacity-30"
+                    className="w-full h-full object-cover"
                 />
             </div>
 
-            <div className="container mx-auto px-4 -mt-32 relative z-10">
+            {/* Main Content */}
+            <div className="container mx-auto px-4 -mt-96 relative z-10">
                 <button
                     onClick={handleBack}
-                    className="flex items-center text-[#7692FF] hover:text-[#ABD2FA] transition-colors mb-6"
+                    className="flex items-center text-[#ABD2FA] hover:text-white transition-colors mb-8 bg-[#1a1a2e]/50 px-4 py-2 rounded-full"
                 >
-                    <FaChevronLeft className="w-6 h-6 mr-2" />
-                    Retour
+                    <FaChevronLeft className="w-5 h-5 mr-2" />
+                    <span>Retour</span>
                 </button>
 
-                <div className="flex flex-col md:flex-row gap-8">
-                    <div className="md:w-1/3">
-                        <img
-                            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                            alt={movie.title}
-                            className="rounded-lg shadow-2xl"
-                        />
+                <div className="flex flex-col lg:flex-row gap-12">
+                    {/* Poster Section */}
+                    <div className="lg:w-1/3">
+                        <div className="relative group">
+                            <img
+                                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                                alt={movie.title}
+                                className="rounded-xl shadow-2xl transform transition duration-300 group-hover:scale-[1.02]"
+                            />
+                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="bg-[#ABD2FA] text-[#1B2CC1] px-6 py-3 rounded-full flex items-center gap-2 transform -translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+                                >
+                                    <FaPlay className="w-4 h-4" />
+                                    <span>Voir la bande-annonce</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="md:w-2/3">
-                        <h1 className="text-4xl font-bold text-[#ABD2FA] mb-4">
-                            {movie.title} <span className="text-[#7692FF]">({new Date(movie.release_date).getFullYear()})</span>
+                    {/* Details Section */}
+                    <div className="lg:w-2/3">
+                        <h1 className="text-5xl font-bold text-white mb-4 leading-tight">
+                            {movie.title}
+                            <span className="text-[#ABD2FA] text-3xl ml-4">
+                                ({new Date(movie.release_date).getFullYear()})
+                            </span>
                         </h1>
 
-                        <div className="flex items-center space-x-6 mb-6">
-                            <div className="flex items-center text-[#ABD2FA]">
-                                <FaStar className="w-6 h-6 mr-1" />
-                                <span className="text-xl font-bold">{movie.vote_average.toFixed(1)}</span>
+                        {/* Rating and Actions */}
+                        <div className="flex flex-wrap items-center gap-6 mb-8">
+                            <div className="flex items-center bg-[#1a1a2e]/50 px-4 py-2 rounded-full">
+                                <FaStar className="w-6 h-6 text-yellow-400 mr-2" />
+                                <span className="text-2xl font-bold text-white">
+                                    {movie.vote_average.toFixed(1)}
+                                </span>
                             </div>
+
                             <button
                                 onClick={toggleWatchlist}
-                                className={`flex items-center space-x-2 px-4 py-2 rounded transition duration-300 transform hover:scale-105 ${isInWatchlist
-                                    ? 'bg-[#e6b616] text-black'
-                                    : 'bg-[#3D518C] text-[#ABD2FA] hover:bg-[#7692FF]'
+                                className={`flex items-center gap-2 px-6 py-2 rounded-full transition duration-300 ${isInWatchlist
+                                    ? 'bg-[#ABD2FA] text-[#1B2CC1]'
+                                    : 'bg-[#1a1a2e]/50 text-[#ABD2FA] hover:bg-[#ABD2FA] hover:text-[#1B2CC1]'
                                     }`}
                             >
-                                <FaHeart className={`w-5 h-5 ${isInWatchlist ? 'fill-current' : ''}`} />
-                                <span>{isInWatchlist ? 'Retirer de ma liste' : 'Ajouter à ma liste'}</span>
-                            </button>
-                            <button
-                                onClick={() => setIsModalOpen(true)}
-                                className="flex items-center space-x-2 bg-[#3D518C] text-[#ABD2FA] px-4 py-2 rounded hover:bg-[#7692FF] transition duration-300 transform hover:scale-105"
-                            >
-                                <span>Voir les bandes-annonces</span>
+                                {isInWatchlist ? <FaCheck className="w-5 h-5" /> : <FaPlus className="w-5 h-5" />}
+                                <span>{isInWatchlist ? 'Dans ma liste' : 'Ajouter à ma liste'}</span>
                             </button>
                         </div>
 
-                        <div className="flex items-center space-x-4 text-[#3D518C] mb-6">
+                        {/* Movie Info */}
+                        <div className="flex flex-wrap gap-4 text-white/70 mb-8">
                             <div className="flex items-center">
-                                <FaCalendar className="w-4 h-4 mr-1" />
-                                <span>{movie.release_date}</span>
+                                <FaCalendar className="w-4 h-4 mr-2" />
+                                <span>{new Date(movie.release_date).toLocaleDateString('fr-FR')}</span>
                             </div>
                             <div className="flex items-center">
-                                <FaClock className="w-4 h-4 mr-1" />
-                                <span>{movie.runtime} min</span>
+                                <FaClock className="w-4 h-4 mr-2" />
+                                <span>{movie.runtime} minutes</span>
                             </div>
                         </div>
 
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold text-[#ABD2FA] mb-2">Aperçu</h2>
-                            <p className="text-gray-300 leading-relaxed">{movie.overview}</p>
+                        {/* Overview */}
+                        <div className="mb-8">
+                            <h2 className="text-2xl font-semibold text-white mb-4">Synopsis</h2>
+                            <p className="text-white/80 leading-relaxed text-lg">{movie.overview}</p>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <h3 className="text-[#ABD2FA] font-semibold mb-1">Genre</h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {movie.genres?.map(genre => (
-                                        <span key={genre.id} className="bg-[#3D518C] text-[#ABD2FA] px-3 py-1 rounded-full text-sm">
-                                            {genre.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                            <div>
-                                <h3 className="text-white font-semibold mb-1">Langue</h3>
-                                <p className="text-[#ABD2FA]">{movie.original_language?.toUpperCase()}</p>
+                        {/* Genres */}
+                        <div className="mb-8">
+                            <h3 className="text-xl font-semibold text-white mb-3">Genres</h3>
+                            <div className="flex flex-wrap gap-2">
+                                {movie.genres?.map(genre => (
+                                    <span
+                                        key={genre.id}
+                                        className="bg-[#1a1a2e]/50 text-[#ABD2FA] px-4 py-1 rounded-full text-sm"
+                                    >
+                                        {genre.name}
+                                    </span>
+                                ))}
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold text-[#ABD2FA] mt-2">Distribution</h2>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                {movie.cast?.length > 0 ? (
-                                    movie.cast.map(actor => (
-                                        <article key={actor.id} className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-6 pb-6 pt-24 max-w-xs mx-auto mt-4 group">
-                                            <img
-                                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}` : '/path/to/default-image.jpg'}
-                                                alt={actor.name}
-                                                className="absolute inset-0 h-40 w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                                            <h3 className="z-10 mt-3 text-2xl font-bold text-white">{actor.name}</h3>
-                                            <div className="z-10 text-sm leading-6 text-gray-300">{actor.character}</div>
-                                        </article>
-                                    ))
-                                ) : (
-                                    <p className="text-[#ABD2FA]">N/A</p>
-                                )}
-                            </div>
-                        </div>
-                        <div className="mb-6">
-                            <h2 className="text-xl font-semibold text-[#ABD2FA] mb-2">Réalisateur</h2>
-                            {movie.director ? (
-                                <article className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl px-6 pb-6 pt-24 max-w-xs mt-4 group">
+                {/* Cast Section */}
+                {movie.cast?.length > 0 && (
+                    <div className="mt-16">
+                        <h2 className="text-2xl font-semibold text-white mb-6">Distribution</h2>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                            {movie.cast.slice(0, 6).map(actor => (
+                                <div
+                                    key={actor.id}
+                                    className="bg-[#1a1a2e]/50 rounded-lg overflow-hidden transform transition duration-300 hover:scale-105"
+                                >
                                     <img
-                                        src={movie.director_profile_path ? `https://image.tmdb.org/t/p/w200/${movie.director_profile_path}` : 'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg'}
-                                        alt={movie.director}
-                                        className="absolute inset-0 h-40 w-full object-cover bg-[#3D518C] transition-transform duration-300 group-hover:scale-105"
+                                        src={
+                                            actor.profile_path
+                                                ? `https://image.tmdb.org/t/p/w200/${actor.profile_path}`
+                                                : 'https://via.placeholder.com/200x300?text=No+Image'
+                                        }
+                                        alt={actor.name}
+                                        className="w-full aspect-[2/3] object-cover"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-                                    <h3 className="z-10 mt-3 text-2xl font-bold text-white">{movie.director}</h3>
-                                    <div className="z-10 text-sm leading-6 text-gray-300">Réalisateur</div>
-                                </article>
-                            ) : (
-                                <p className="text-[#ABD2FA]">N/A</p>
-                            )}
+                                    <div className="p-4">
+                                        <h3 className="text-white font-medium text-lg truncate">{actor.name}</h3>
+                                        <p className="text-white/60 text-sm truncate">{actor.character}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* Director Section */}
+                <div className="mt-16">
+                    <h2 className="text-2xl font-semibold text-white mb-6">Réalisateur</h2>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+                        <div className="bg-[#1a1a2e]/50 rounded-lg overflow-hidden transform transition duration-300 hover:scale-105">
+                            <img
+                                src={
+                                    movie.director_profile_path
+                                        ? `https://image.tmdb.org/t/p/w200/${movie.director_profile_path}`
+                                        : 'https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg'
+                                }
+                                alt={movie.director}
+                                className="w-full aspect-[2/3] object-cover"
+                            />
+                            <div className="p-4">
+                                <h3 className="text-white font-medium text-lg truncate">{movie.director}</h3>
+                                <p className="text-white/60 text-sm truncate">Réalisateur</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            {/* Trailer Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-opacity-70 backdrop-blur-sm transition-opacity duration-300">
-                    <div className="relative bg-[#091540] border border-[#7692FF] m-4 p-6 w-3/5 min-w-[40%] max-w-[90%] rounded-lg shadow-2xl transition-all duration-300">
-                        <div className="flex items-center justify-between pb-4">
-                            <h3 className="text-2xl font-bold text-[#ABD2FA]">Bandes-annonces</h3>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm">
+                    <div className="w-11/12 max-w-5xl bg-[#1a1a2e] rounded-xl overflow-hidden shadow-2xl">
+                        <div className="flex justify-between items-center p-6 border-b border-white/10">
+                            <h3 className="text-2xl font-bold text-white">Bandes-annonces</h3>
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="text-[#ABD2FA] hover:text-[#e6b616] transition-colors"
+                                className="text-white/60 hover:text-white transition-colors"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </svg>
+                                <FaTimes className="w-6 h-6" />
                             </button>
                         </div>
-                        <div className="relative border-t border-[#3D518C] py-4">
+                        <div className="p-6">
                             <Slider {...settings}>
-                                {trailers.slice(0, 3).map((trailer, index) => (
-                                    <div key={trailer.id} className="p-2">
+                                {trailers.slice(0, 3).map((trailer) => (
+                                    <div key={trailer.id} className="aspect-video">
                                         <iframe
                                             width="100%"
-                                            height="315"
+                                            height="100%"
                                             src={`https://www.youtube.com/embed/${trailer.key}?rel=0`}
                                             title={trailer.name}
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowFullScreen
+                                            className="rounded-lg"
                                         ></iframe>
                                     </div>
                                 ))}
