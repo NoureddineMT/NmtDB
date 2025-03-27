@@ -64,11 +64,27 @@ const MovieDetails = () => {
 
     const toggleWatchlist = () => {
         const watchlist = JSON.parse(localStorage.getItem('watchlist') || '[]');
+        const isInWatchlist = watchlist.some(item => item.id === movie.id);
+
         if (isInWatchlist) {
-            const newWatchlist = watchlist.filter(m => m.id !== movie.id);
-            localStorage.setItem('watchlist', JSON.stringify(newWatchlist));
+            const updatedWatchlist = watchlist.filter(item => item.id !== movie.id);
+            localStorage.setItem('watchlist', JSON.stringify(updatedWatchlist));
         } else {
-            watchlist.push(movie);
+            const movieToAdd = {
+                id: movie.id,
+                title: movie.title,
+                poster_path: movie.poster_path,
+                backdrop_path: movie.backdrop_path,
+                release_date: movie.release_date,
+                vote_average: movie.vote_average,
+                overview: movie.overview,
+                runtime: movie.runtime,
+                genres: movie.genres,
+                cast: movie.cast,
+                director: movie.director,
+                director_profile_path: movie.director_profile_path
+            };
+            watchlist.push(movieToAdd);
             localStorage.setItem('watchlist', JSON.stringify(watchlist));
         }
         setIsInWatchlist(!isInWatchlist);
@@ -86,13 +102,8 @@ const MovieDetails = () => {
     };
 
     const handleBack = () => {
-        const previousPage = localStorage.getItem('previousPage');
-        if (previousPage) {
-            localStorage.removeItem('previousPage');
-            navigate(previousPage);
-        } else {
-            navigate(-1);
-        }
+        const previousPage = location.state?.from || '/';
+        navigate(previousPage);
     };
 
     if (loading) {
