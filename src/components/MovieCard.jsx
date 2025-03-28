@@ -68,7 +68,7 @@ const MovieCard = ({ movie }) => {
                 <h3 className="text-[#7692FF] font-medium group-hover:text-[#ABD2FA] line-clamp-2 transition-colors duration-300 text-sm sm:text-base">
                     {movie.title}
                 </h3>
-                <p className="text-[#3D518C] text-xs sm:text-sm mt-1">
+                <p className="text-[#ABD2FA] text-xs sm:text-sm mt-1">
                     {new Date(movie.release_date).getFullYear()}
                 </p>
             </div>
