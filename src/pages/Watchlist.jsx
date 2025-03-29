@@ -91,7 +91,7 @@ const Watchlist = () => {
                                         {movie.title || 'Titre inconnu'}
                                     </h3>
                                     {movie.release_date && (
-                                        <p className="text-[#3D518C] text-sm mt-1">
+                                        <p className="text-[#ABD2FA] text-sm mt-1">
                                             {new Date(movie.release_date).getFullYear()}
                                         </p>
                                     )}
